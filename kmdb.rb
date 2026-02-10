@@ -97,12 +97,16 @@ Agent.destroy_all
 # Do not use hard-coded foreign key IDs.
 # TODO!
 wb = Studio.new
-wb["name"] = "Warner Bros"
+wb["name"] = "Warner Bros."
 wb.save
 
 agent_sam = Agent.new
 agent_sam["name"] = "Sam Feng"
 agent_sam.save
+
+agent_tom = Agent.new
+agent_tom["name"] = "Tom Hanks"
+agent_tom.save
 
 # Inserting all movies
 batman_begins = Movie.new
@@ -144,7 +148,7 @@ a_ln.save
 
 a_kh = Actor.new
 a_kh["name"] = "Katie Holmes"
-a_kh["agent_id"] = agent_sam.id
+a_kh["agent_id"] = agent_tom.id
 a_kh.save
 
 a_go = Actor.new
@@ -174,12 +178,12 @@ a_th.save
 
 a_jgl = Actor.new
 a_jgl["name"] = "Joseph Gordon-Levitt"
-a_jgl["agent_id"] = agent_sam.id
+a_jgl["agent_id"] = agent_tom.id
 a_jgl.save
 
 a_ah = Actor.new
 a_ah["name"] = "Anne Hathaway"
-a_ah["agent_id"] = agent_sam.id
+a_ah["agent_id"] = agent_tom.id
 a_ah.save
 
 # Inserting roles
@@ -221,10 +225,57 @@ r_dk1_bw.save
 
 r_dk1_j = Role.new
 r_dk1_j["movie_id"] = dark_knight_1.id
-r_dk1_j["actor_id"] = a_cb.id
-r_dk1_j["character_name"] = "Bruce Wayne"
+r_dk1_j["actor_id"] = a_hl.id
+r_dk1_j["character_name"] = "Joker"
 r_dk1_j.save
 
+r_dk1_hd = Role.new
+r_dk1_hd["movie_id"] = dark_knight_1.id
+r_dk1_hd["actor_id"] = a_ae.id
+r_dk1_hd["character_name"] = "Harvey Dent"
+r_dk1_hd.save
+
+r_dk1_a = Role.new
+r_dk1_a["movie_id"] = dark_knight_1.id
+r_dk1_a["actor_id"] = a_mc.id
+r_dk1_a["character_name"] = "Alfred"
+r_dk1_a.save
+
+r_dk1_rd = Role.new
+r_dk1_rd["movie_id"] = dark_knight_1.id
+r_dk1_rd["actor_id"] = a_mg.id
+r_dk1_rd["character_name"] = "Rachel Dawes"
+r_dk1_rd.save
+
+r_dk2_bw = Role.new
+r_dk2_bw["movie_id"] = dark_knight_2.id
+r_dk2_bw["actor_id"] = a_cb.id
+r_dk2_bw["character_name"] = "Bruce Wayne"
+r_dk2_bw.save
+
+r_dk2_cg = Role.new
+r_dk2_cg["movie_id"] = dark_knight_2.id
+r_dk2_cg["actor_id"] = a_go.id
+r_dk2_cg["character_name"] = "Commissioner Gordon"
+r_dk2_cg.save
+
+r_dk2_b = Role.new
+r_dk2_b["movie_id"] = dark_knight_2.id
+r_dk2_b["actor_id"] = a_th.id
+r_dk2_b["character_name"] = "Bane"
+r_dk2_b.save
+
+r_dk2_jb = Role.new
+r_dk2_jb["movie_id"] = dark_knight_2.id
+r_dk2_jb["actor_id"] = a_jgl.id
+r_dk2_jb["character_name"] = "John Blake"
+r_dk2_jb.save
+
+r_dk2_sk = Role.new
+r_dk2_sk["movie_id"] = dark_knight_2.id
+r_dk2_sk["actor_id"] = a_ah.id
+r_dk2_sk["character_name"] = "Selina Kyle"
+r_dk2_sk.save
 
 # Prints a header for the movies output
 puts "Movies"
@@ -263,11 +314,16 @@ end
 
 # Prints a header for the agent's list of represented actors output
 puts ""
-puts "Represented by agent"
+puts "Represented by agent Sam Feng"
 puts "===================="
 puts ""
 
 # Query the actor data and loop through the results to display the agent's list of represented actors output.
 # TODO!
-
+agent_sam_feng = Agent.find_by({"name" => "Sam Feng"})
+represented_by_sam = Actor.where({"agent_id" => agent_sam_feng["id"]})
+for actor in represented_by_sam
+  actor_name = actor["name"]
+  puts "#{actor_name}"
+end
 
